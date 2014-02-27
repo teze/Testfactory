@@ -1,0 +1,21 @@
+﻿{
+info: {
+extra: {
+thumb_size: "_250x250.jpg"
+},
+data: [
+{
+id: "29454",
+title: "包邮女情趣内衣套装 紫色透纱蕾丝浴袍 性感挂脖诱惑开襟连体睡衣",
+price: "145",
+pic_url: "http://img04.taobaocdn.com/bao/uploaded/i4/T1W92.XixcXXXGglZ4_054048.jpg",
+volume: "6",
+wap_detail_url: "http://s.click.taobao.com/t?e=zGU0g6e1d7xnyW5i7tVTF34AiQ6j288BlhA7tjfUmysrt4Uf1SftPNyodJJ5zMgzYgm5FWDlOge09UqaEoWShv7e7y20nLu08yx0U1BwFbODgyvlitYt7CL17vikhQDDCtjvAyQ34KPmxUyCxUzlc8QZ6oU6%2BVhylggMq5tPxsjspi%2FZdbkCOCwJ%2FouvbAA%3D&spm=2014.21040542.1.0",
+fav_create_time: "1342209243",
+cid: "4"
+}
+]
+},
+response_status: "success",
+msg: ""
+}
