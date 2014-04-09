@@ -1,24 +1,30 @@
 package com.teze.testgjson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.R.integer;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -34,7 +40,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		try {
-			testJson();
+			testGenerateGif();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,6 +50,26 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
 	}
+	
+	
+	
+	private void testTojson(){
+		
+		List<Info> infos=new Vector<Info>();
+		for (int i = 0; i < 10; i++) {
+			Info info=new Info();
+			info.name="name"+i;
+			info.title="title"+i;
+			info.book=new Info.Book();
+			info.book.bookName="bookName";
+			infos.add(info);
+		}
+		Gson gson=new GsonBuilder().create();
+		String jsonString=gson.toJson(infos);
+		Log.i("TAG", jsonString);
+		
+	}
+	
 
 	public void testGJson() throws JSONException {
 		try {
@@ -144,5 +170,35 @@ public class MainActivity extends Activity {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public byte[] generateGIF() {
+		Bitmap bitmap1=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		Bitmap bitmap2=BitmapFactory.decodeResource(getResources(), R.drawable.a);
+	    ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
+	    bitmaps.add(bitmap1);
+	    bitmaps.add(bitmap2);
+	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    AnimatedGifEncoder encoder = new AnimatedGifEncoder();
+	    encoder.start(bos);
+	    for (Bitmap bitmap : bitmaps) {
+	        encoder.addFrame(bitmap);
+	    }
+	    encoder.finish();
+	    return bos.toByteArray();
+	}
+	
+	
+	public void testGenerateGif(){
+		long time =System.currentTimeMillis();
+		FileOutputStream outStream = null;
+	    try{
+	        outStream = new FileOutputStream("/sdcard/test.gif");
+	        outStream.write(generateGIF());
+	        outStream.close();
+	        Log.i(TAG, "testGenerateGif successful time >> "+(System.currentTimeMillis()-time));
+	    }catch(Exception e){
+	        e.printStackTrace();
+	    }
 	}
 }
