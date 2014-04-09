@@ -1,13 +1,10 @@
-package com.teze.testgjson;
+package com.teze.test.activity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,11 +14,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,47 +23,39 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.teze.test.JsonInfo;
+import com.teze.test.R;
 
-public class MainActivity extends Activity {
+public class TestGJsonActivity extends Activity {
 
-	private static final String TAG = "MainActivity";
+	protected static final String TAG = "TestGJsonActivity";
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		try {
-			testGenerateGif();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		setContentView(R.layout.activity_test_gjson);
+		testTojson();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
-	}
-	
-	
-	
+
 	private void testTojson(){
-		
-		List<Info> infos=new Vector<Info>();
+
+		List<JsonInfo> infos=new Vector<JsonInfo>();
 		for (int i = 0; i < 10; i++) {
-			Info info=new Info();
+			JsonInfo info=new JsonInfo();
 			info.name="name"+i;
 			info.title="title"+i;
-			info.book=new Info.Book();
+			info.book=new JsonInfo.Book();
 			info.book.bookName="bookName";
 			infos.add(info);
 		}
 		Gson gson=new GsonBuilder().create();
 		String jsonString=gson.toJson(infos);
 		Log.i("TAG", jsonString);
-		
+
 	}
-	
+
 
 	public void testGJson() throws JSONException {
 		try {
@@ -83,7 +69,7 @@ public class MainActivity extends Activity {
 			inputStream = getAssets().open("text.txt");
 			Reader reader = new InputStreamReader(inputStream);
 			JsonReader jsonReader = new JsonReader(reader);
-			
+
 			try {
 				jsonReader.beginObject();
 				while (jsonReader.hasNext()) {
@@ -112,8 +98,8 @@ public class MainActivity extends Activity {
 			e1.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void testJson() throws IOException{
 		InputStream inputStream = getAssets().open("text.txt");
 		DataInputStream data=new DataInputStream(inputStream);
@@ -170,35 +156,5 @@ public class MainActivity extends Activity {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public byte[] generateGIF() {
-		Bitmap bitmap1=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		Bitmap bitmap2=BitmapFactory.decodeResource(getResources(), R.drawable.a);
-	    ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
-	    bitmaps.add(bitmap1);
-	    bitmaps.add(bitmap2);
-	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	    AnimatedGifEncoder encoder = new AnimatedGifEncoder();
-	    encoder.start(bos);
-	    for (Bitmap bitmap : bitmaps) {
-	        encoder.addFrame(bitmap);
-	    }
-	    encoder.finish();
-	    return bos.toByteArray();
-	}
-	
-	
-	public void testGenerateGif(){
-		long time =System.currentTimeMillis();
-		FileOutputStream outStream = null;
-	    try{
-	        outStream = new FileOutputStream("/sdcard/test.gif");
-	        outStream.write(generateGIF());
-	        outStream.close();
-	        Log.i(TAG, "testGenerateGif successful time >> "+(System.currentTimeMillis()-time));
-	    }catch(Exception e){
-	        e.printStackTrace();
-	    }
 	}
 }

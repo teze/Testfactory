@@ -1,4 +1,4 @@
-package com.teze.testgjson;
+package com.teze.test;
 import java.io.IOException;
 import java.io.OutputStream;
 

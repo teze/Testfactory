@@ -1,7 +1,7 @@
-package com.teze.testgjson;
+package com.teze.test;
 
 
-public class Info {
+public class JsonInfo {
 	public String name;
 	public String title;
 	public String id;
@@ -10,7 +10,7 @@ public class Info {
 	public Book book;
 	
 	
-	static class Book{
+	public static class Book{
 		public String bookName;
 	}
 }
